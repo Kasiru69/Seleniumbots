@@ -10,9 +10,10 @@ class Monkey:
         self.driver = webdriver.Chrome()
         self.speed=delay
         self.count=0
+        self.bot_link="https://monkeytype.com"
 
     def run_bot(self):
-        self.driver.get("https://monkeytype.com")
+        self.driver.get(self.bot_link)
         try:
             self.driver.execute_script(
                 'arguments[0].click()',
@@ -21,6 +22,8 @@ class Monkey:
             time.sleep(5)
             input_field = self.driver.switch_to.active_element
             while True:
+                if len(self.driver.window_handles) == 0:
+                    break
                 word_elements = self.driver.find_elements(By.CSS_SELECTOR, "#words .word")
 
                 for word_element in word_elements:
